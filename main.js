@@ -70,7 +70,7 @@ let data = {
     "ダメージ": ["ゲンジ", "ソルジャー76"],
     "サポート": ["マーシー", "アナ"]
   },
-  roleCounts: {} //追加
+  roleCounts: {}
 };
 
 const STORAGE_KEY = "characterPickerData";
@@ -145,9 +145,9 @@ function copyResult() {
   const resultText = document.getElementById("result").innerText;
   const fullText = t.shareText + "\n\n" + resultText; // 共有テキストを追加
 
-   console.log("コピーするテキスト:", fullText); // 追加
+   console.log("コピーするテキスト:", fullText);
 
-  navigator.clipboard.writeText(fullText) //修正前 navigator.clipboard.writeText(resultText)
+  navigator.clipboard.writeText(fullText)
     .then(() => alert(t.copySuccess))
     .catch(() => alert(t.copyFailure));
 }
@@ -246,7 +246,7 @@ const addRoleBtn = document.getElementById("addRoleBtn");
   document.getElementById("resetCharsBtn").textContent = t.resetCharsBtn;
 
 
-  // ↓ ここでプレイヤー入力欄の表示制御も行う（任意：style制御などで）
+  // ここでプレイヤー入力欄の表示制御
   const playerNamesArea = document.getElementById("playerNames");
   if (playerNamesArea) {
     playerNamesArea.style.display = useRolesChecked ? "none" : "block";
@@ -301,7 +301,7 @@ const addRoleBtn = document.getElementById("addRoleBtn");
       const charName = input.value.trim();
       if (!charName) return;
 
-       // 全ロールのキャラを取得（大文字・小文字は無視してチェックしたい場合はtoLowerCase()を使う）
+       // 全ロールのキャラを取得
         const allChars = Object.values(data.roles).flat();
 
         // 重複チェック
@@ -317,7 +317,7 @@ const addRoleBtn = document.getElementById("addRoleBtn");
     };
     block.appendChild(input);
     block.appendChild(addBtn);
-    container.appendChild(block); //追加
+    container.appendChild(block); 
 
     // 担当プレイヤー名ラベルを翻訳文でセット
     const nameLabel = document.createElement("div");
@@ -335,7 +335,7 @@ const addRoleBtn = document.getElementById("addRoleBtn");
   }
 }
 
-// 追加
+
 function importNames() {
   const importText = document.getElementById("bulkImport").value;
   const players = importText
@@ -366,7 +366,7 @@ function importNames() {
 
   document.getElementById("playerNames").value = players.join("\n");
 
-  // キャラ一覧の重複除去を行いたい場合
+  // キャラ一覧の重複除去
   const charListArea = document.getElementById("charList");
   if (charListArea) {
     removeDuplicateChars(charListArea);
