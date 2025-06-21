@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PickPlay!</title>
+    <link rel="icon" type="image/png" href="images/favicon-48x48.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!--言語切り替え-->
+    <div class="lang-switch">
+        <button onclick="toggleLanguage()">日本語 / English</button>
+    </div>
+
+    <!--タイトル-->
+    <h1 id="title">PickPlay!</h1>
+
+    <!--ロールを使うかどうか-->
+    <label>
+        <input type="checkbox" id="useRoles" checked onchange="render()">
+        <span id="useRolesLabel">ロールを使う</span>
+    </label>
+    
+    <!--ロールとキャラを表示する場所-->
+    <div id="rolesContainer"></div>
+
+    <!--ロール追加ボタン-->
+    <button onclick="addRole()" id="addRoleBtn">ロールを追加</button>
+
+    <!--キャラピックセクション-->
+    <div class="pick-controls" id="bulkImportSection">
+        <label id="importLabel" for="bulkImport">一括入力（カンマ / 改行対応）</label><br>
+        <textarea id="bulkImport" rows="2"></textarea>
+        <button id="importBtn" onclick="importNames()">インポート</button><br><br>
+
+        <label id="playerNamesLabel" for="playerNames">プレイヤー名（改行区切り）</label>
+        <textarea id="playerNames" rows="5"></textarea>
+
+    </div>
+
+    <!-- ロールを使わないときのキャラ入力欄 -->
+    <div id="charInputSection" style="display: none;">
+        <label id="charListLabel" for="charList">キャラクターの一覧（改行区切り）</label>
+        <textarea id="charList"></textarea>
+        <button id="mergeRoleCharsBtn" onclick="exportAllCharsToSingleList()">ロールのキャラクターを統合</button>
+        <button id="resetCharsBtn">キャラクターをリセット</button>
+    </div>
+
+    <!--ピックボタンを共通で使える場所に移動-->
+<button id="pickBtn" onclick="pickCharacter()">ピックする！</button>
+
+
+    <!--結果の表示場所-->
+    <div id="result"></div>
+
+    <div class="result-actions">
+        <button id="copyBtn" onclick="copyResult()">コピー</button>
+        <button id="lineShareBtn" onclick="openLine()">LINEを開く</button>
+        <button id="discordOpenBtn" onclick="openDiscord()">Discordを開く</button>
+    </div>
+
+
+    <!--Javascriptの読み込み-->
+    <script src="main.js"></script>
+</body>
+</html>
