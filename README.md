@@ -24,8 +24,7 @@ To solve this, I built a lightweight web app that can randomly assign characters
 Gamers and groups who enjoy cooperative or competitive games and want some variety or fairness in role assignments.
 
 ## 🌐 Public Page
-This app is deployed using Netlify.
-▶️ [Open the app](https://pickplay10.netlify.app/)
+▶️ [Open the app](https://black1000.github.io/PickPlay/)
 
 ### Example: Using Roles
 
