@@ -36,8 +36,7 @@ PickPlay!
 ※ キャラクター数がプレイヤー数より少ない場合、ピックできずに警告メッセージが表示されます。
 
 ## 🌐 公開ページ
-このアプリは Netlify を使ってデプロイしています。
-▶️ [アプリを開く](https://pickplay10.netlify.app/)
+▶️ [アプリを開く](https://black1000.github.io/PickPlay/)
 
 ### MVP
 - ランダムピック機能（Math.random() を使用）
