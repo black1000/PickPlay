@@ -66,9 +66,9 @@ function setLanguage(lang) {
 let data = {
   useRoles: true,
   roles: {
-    "タンク": ["D.Va", "ラインハルト"],
-    "ダメージ": ["ゲンジ", "ソルジャー76"],
-    "サポート": ["マーシー", "アナ"]
+    "Role A": ["Player1", "Player2"],
+    "Role B": ["Player3", "Player4"],
+    "Role C": ["Player5", "Player6"]
   },
   roleCounts: {}
 };
