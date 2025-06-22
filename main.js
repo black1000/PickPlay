@@ -154,7 +154,17 @@ function copyResult() {
 
 // LINEを開く（空のメッセージ用URL）
 function openLine() {
-window.open("https://line.me/R/msg/text/?", "_blank");
+  const t = translations[currentLang];
+  const resultText = document.getElementById("result").innerText.trim();
+
+  if (!resultText) {
+    alert(currentLang === "ja" ? "結果がありません！" : "No result to share!");
+    return;
+  }
+
+  const message = encodeURIComponent(t.shareText + "\n\n" + resultText);
+  const lineUrl = `https://line.me/R/msg/text/?${message}`;
+  window.location.href = lineUrl;
 }
 
 // Discordを開く（ブラウザ版）
