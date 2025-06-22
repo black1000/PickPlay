@@ -66,9 +66,9 @@ function setLanguage(lang) {
 let data = {
   useRoles: true,
   roles: {
-    "Role A": ["Player1", "Player2"],
-    "Role B": ["Player3", "Player4"],
-    "Role C": ["Player5", "Player6"]
+    "Role A": ["Character1", "Character2"],
+    "Role B": ["Character3", "Character4"],
+    "Role C": ["Character5", "Character6"]
   },
   roleCounts: {}
 };
