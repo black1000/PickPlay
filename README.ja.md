@@ -36,6 +36,7 @@ PickPlay!
 ※ キャラクター数がプレイヤー数より少ない場合、ピックできずに警告メッセージが表示されます。
 
 ## 🌐 公開ページ
+デプロイには GitHub Pages を使用しています。
 ▶️ [アプリを開く](https://black1000.github.io/PickPlay/)
 
 ### MVP
