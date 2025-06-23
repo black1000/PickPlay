@@ -1,15 +1,15 @@
 const CACHE_NAME = 'pickplay-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/main.js',
-  '/images/favicon-96x96.png',
-  '/images/favicon-48x48.png',
-  '/images/apple-touch-icon.png',
-  '/images/android-chrome-192x192.png',
-  '/images/android-chrome-512x512.png',
-  '/images/site.webmanifest'
+  '/PickPlay/',
+  '/PickPlay/index.html',
+  '/PickPlay/style.css',
+  '/PickPlay/main.js',
+  '/PickPlay/images/favicon-96x96.png',
+  '/PickPlay/images/favicon-48x48.png',
+  '/PickPlay/images/apple-touch-icon.png',
+  '/PickPlay/images/android-chrome-192x192.png',
+  '/PickPlay/images/android-chrome-512x512.png',
+  '/PickPlay/site.webmanifest'
 ];
 
 // インストール時にキャッシュするファイルを登録
@@ -27,5 +27,16 @@ self.addEventListener('fetch', function (event) {
     caches.match(event.request).then(function (response) {
       return response || fetch(event.request);
     })
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames =>
+      Promise.all(
+        cacheNames.filter(name => name !== CACHE_NAME)
+                  .map(name => caches.delete(name))
+      )
+    )
   );
 });
