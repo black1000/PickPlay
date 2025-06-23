@@ -63,6 +63,58 @@ The application is deployed using GitHub Pages.
 - Responsive layout (mobile-friendly UI)
 - Improved UX for duplicate name checks (clear error messages)
 - Displays a warning if the number of characters is less than the number of players
+- PWA Support(Added in June 2025): Installable as a web app from mobile home screens
+
+### ✅ PWA Support (Added in June 2025): Use like an app from your home screen
+
+## How to Use the PWA (Mobile & PC Supported)
+
+### 1. Open the PWA site in your browser  
+📍 App URL:  
+[PickPlay!](https://black1000.github.io/PickPlay/)
+
+---
+
+### 2. How to Install
+
+#### 📱 On Mobile
+
+- **iPhone (Safari)**  
+  Tap the share icon at the bottom → "Add to Home Screen" → Confirm the name and tap "Add"
+
+- **Android (Chrome or similar)**  
+  Tap the menu icon (three dots) at the top right → Select "Add to Home screen" or "Install"
+
+---
+
+### 3. After Installation
+
+- An icon will appear on your home screen  
+- Launching from the icon hides browser UI and makes it look like a standalone app  
+- If cached properly, it can work offline (thanks to Service Worker)
+
+---
+
+### 4. 💻 How to Install on PC (Chrome / Edge)
+
+1. Open the site in Chrome or Edge  
+2. Look for the "Install" icon at the right end of the address bar  
+3. If not visible, open the browser menu manually  
+   - **Chrome:** Click menu (︙) → "Install [Site Name]"  
+   - **Edge:** Click menu (…) → "Apps" → "Install this site as an app"  
+4. Allow the install when prompted  
+5. A desktop shortcut will be created, and the app will open in a separate window
+
+---
+
+### ⚠️ Notes
+
+- Behavior may vary depending on browser or version  
+- It may take a moment for caching to fully activate  
+- Changes to the site’s URL structure may affect cached data  
+- Chrome or Edge is recommended for desktop installation
+
+---
 
 ## Planned Features (Future Roadmap)
 
