@@ -12,7 +12,7 @@ const urlsToCache = [
   '/PickPlay/site.webmanifest'
 ];
 
-// インストール時にキャッシュするファイルを登録
+// インストール時にキャッシュ
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
@@ -21,15 +21,16 @@ self.addEventListener('install', function (event) {
   );
 });
 
-// リクエストがあったとき、キャッシュがあれば返す
+// ネットワーク優先、失敗したらキャッシュ
 self.addEventListener('fetch', function (event) {
   event.respondWith(
-    caches.match(event.request).then(function (response) {
-      return response || fetch(event.request);
+    fetch(event.request).catch(function () {
+      return caches.match(event.request);
     })
   );
 });
 
+// 古いキャッシュ削除
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames =>
