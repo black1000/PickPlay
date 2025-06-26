@@ -211,6 +211,11 @@ function render() {
       const charListArea = document.getElementById("charList");
       if (charListArea) {
         charListArea.value = loadCharList();
+        
+        // 💡 iOS対策としてフォーカスを遅延して与える
+        setTimeout(() => {
+          charListArea.focus();
+         }, 100);
 
         // ここで重複除去を先に実行
         removeDuplicateChars(charListArea);
