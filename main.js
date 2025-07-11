@@ -447,10 +447,6 @@ function toggleLanguage() {
   pickCharacter();
 }
 
-if (window.navigator.standalone) {
-  alert("iPhoneのホーム画面から開くと、文字が入力できない場合があります。Safariから直接開いてください。");
-}
-
 window.onload = () => {
   loadData();
   render();
