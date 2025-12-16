@@ -255,6 +255,23 @@ const addRoleBtn = document.getElementById("addRoleBtn");
   document.getElementById("mergeRoleCharsBtn").textContent = t.mergeRoleChars;
   document.getElementById("resetCharsBtn").textContent = t.resetCharsBtn;
 
+    // ヘルプ/PWA文言
+  const helpBtnText = document.getElementById("helpBtnText");
+  if (helpBtnText) helpBtnText.textContent = t.helpBtn;
+
+  const installBtnText = document.getElementById("installBtnText");
+  if (installBtnText) installBtnText.textContent = t.installBtn;
+
+  const helpTitle = document.getElementById("helpTitle");
+  if (helpTitle) helpTitle.textContent = t.helpTitle;
+
+  document.getElementById("helpTabHowto").textContent = t.helpTabHowto;
+  document.getElementById("helpTabPwa").textContent = t.helpTabPwa;
+
+  document.getElementById("helpPanelHowto").innerHTML = t.helpHowtoHtml;
+  document.getElementById("helpPanelPwa").innerHTML = t.helpPwaHtml;
+
+
 
   // ここでプレイヤー入力欄の表示制御
   const playerNamesArea = document.getElementById("playerNames");
@@ -444,10 +461,50 @@ function pickCharacter() {
 function toggleLanguage() {
   currentLang = currentLang === "ja" ? "en" : "ja";
   render();
-  pickCharacter();
+  // pickCharacter();
 }
+function isIOS() {
+  const ua = navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod/.test(ua);
+}
+
+let deferredPrompt = null;
+
+function initHelpUI() {
+  const helpDialog = document.getElementById("helpDialog");
+
+  document.getElementById("helpBtn")?.addEventListener("click", () => helpDialog?.showModal());
+  document.getElementById("helpCloseBtn")?.addEventListener("click", () => helpDialog?.close());
+
+  document.querySelectorAll(".helpTab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".helpTab").forEach(b => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+
+      const tab = btn.dataset.tab;
+      document.querySelectorAll("[data-panel]").forEach(p => p.hidden = p.dataset.panel !== tab);
+    });
+  });
+
+  // Chrome/Edge/Android向けのインストール
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtn = document.getElementById("installBtn");
+    if (installBtn && !isIOS()) installBtn.hidden = false;
+  });
+
+  document.getElementById("installBtn")?.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    await deferredPrompt.prompt();
+    deferredPrompt = null;
+    document.getElementById("installBtn").hidden = true;
+  });
+}
+
 
 window.onload = () => {
   loadData();
+  initHelpUI();
   render();
 };
