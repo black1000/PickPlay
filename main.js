@@ -117,7 +117,7 @@ const translations = {
     installBtn: "Install",
     helpTitle: "PickPlay! Help",
     helpTabHowto: "How to use",
-    helpTabPwa: "PWA",
+    helpTabPwa: "Add to Home Screen",
     helpHowtoHtml: `
   <h3>How to Use</h3>
 
@@ -171,6 +171,12 @@ const translations = {
 `,
   },
 };
+
+function trackEvent(name, params = {}) {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", name, params);
+  }
+}
 
 
 
@@ -266,8 +272,14 @@ function copyResult() {
    console.log("コピーするテキスト:", fullText);
 
   navigator.clipboard.writeText(fullText)
-    .then(() => alert(t.copySuccess))
-    .catch(() => alert(t.copyFailure));
+  .then(() => {
+    trackEvent("copy_result", { has_result: resultText.trim() ? "yes" : "no" });
+    alert(t.copySuccess);
+  })
+  .catch(() => {
+    trackEvent("copy_result_failed");
+    alert(t.copyFailure);
+  });
 }
 
 // LINEを開く（空のメッセージ用URL）
@@ -282,11 +294,13 @@ function openLine() {
 
   const message = encodeURIComponent(t.shareText + "\n\n" + resultText);
   const lineUrl = `https://line.me/R/msg/text/?${message}`;
+  trackEvent("share", { method: "line" });
   window.location.href = lineUrl;
 }
 
 // Discordを開く（ブラウザ版）
 function openDiscord() {
+  trackEvent("share", { method: "discord" });
   window.open("https://discord.com/app", "_blank");
 }
 
@@ -564,6 +578,11 @@ function pickCharacter() {
 
   document.getElementById("result").innerHTML =
     results.map(r => `<div>${r}</div>`).join("");
+
+    trackEvent("pick", {
+    use_roles: useRoles ? "yes" : "no",
+    pick_count: results.length
+  });
 }
 
 
@@ -640,4 +659,11 @@ window.onload = () => {
   loadData();
   initHelpUI();
   render();
+
+  document.getElementById("resetCharsBtn")?.addEventListener("click", resetNonRoleCharacters);
+
+  document.getElementById("useRoles")?.addEventListener("change", (e) => {
+    trackEvent("toggle_roles", { enabled: e.target.checked ? "yes" : "no" });
+  });
 };
+
