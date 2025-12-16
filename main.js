@@ -25,7 +25,66 @@ const translations = {
     mergeRoleChars: "ロールのキャラクターを統合",
     resetCharsBtn: "キャラクターの一覧をリセット",
     enterRoleName: "ロール名を入力してください。",
+
+    // ===== ヘルプ / PWA =====
+    helpBtn: "ヘルプ",
+    installBtn: "インストール",
+    helpTitle: "PickPlay! ヘルプ",
+    helpTabHowto: "使い方",
+    helpTabPwa: "ホーム画面に追加",
+    helpHowtoHtml: `
+      <h3>使い方</h3>
+
+  <h4>例）ロールを使う場合</h4>
+  <ol>
+    <li>「ロールを追加」し、キャラクターやプレイヤー名を候補として入力</li>
+    <li>「ピックする！」ボタンを押すと、ロールごとにランダム選出されます</li>
+    <li>結果はコピーしてLINEやDiscordで共有可能です</li>
+  </ol>
+
+  <h4>例）ロールを使わない場合</h4>
+  <ol>
+    <li>キャラクターやプレイヤー名を候補として入力</li>
+    <li>「ピックする！」ボタンを押すと、ランダム選出されます</li>
+    <li>結果はコピーしてLINEやDiscordで共有可能です</li>
+  </ol>
+
+  <p><small>※ キャラクター数がプレイヤー数より少ない場合、ピックできずに警告メッセージが表示されます。</small></p>
+`,
+    helpPwaHtml: `
+  <h3>📱ホーム画面に追加（スマホ）</h3>
+
+  <h4>iPhone（Safari）</h4>
+  <ol>
+    <li>SafariでPickPlay!を開く</li>
+    <li>画面下の「共有」アイコン（□↑）を押す</li>
+    <li>「ホーム画面に追加」を選ぶ</li>
+    <li>名前を確認して「追加」</li>
+  </ol>
+
+  <h4>Android（Chrome）</h4>
+  <ol>
+    <li>ChromeでPickPlay!を開く</li>
+    <li>右上の︙（メニュー）を押す</li>
+    <li>「ホーム画面に追加」または「アプリをインストール」を選ぶ</li>
+    <li>確認して追加</li>
+  </ol>
+
+  <h3>💻PC（Chrome / Edge）</h3>
+  <ol>
+    <li>サイトを開く</li>
+    <li>アドレスバーの「インストール」アイコンが出たらクリック</li>
+    <li>出ない場合はメニューから「インストール」を選ぶ</li>
+  </ol>
+
+  <h3>注意</h3>
+  <ul>
+    <li>iPhoneは<strong>Safari</strong>で開くのが確実です（LINEなどのアプリ内ブラウザだと出ないことがあります）</li>
+    <li>ブラウザやバージョンによって表示や文言が異なる場合があります</li>
+  </ul>
+`,
   },
+
   en: {
     title: "Random Picker",
     useRoles: "Use roles",
@@ -52,8 +111,67 @@ const translations = {
     mergeRoleChars: "Merge Role Characters",
     resetCharsBtn: "Reset Character List",
     enterRoleName: "Please enter a role name",
+
+    // ===== Help / PWA =====
+    helpBtn: "Help",
+    installBtn: "Install",
+    helpTitle: "PickPlay! Help",
+    helpTabHowto: "How to use",
+    helpTabPwa: "PWA",
+    helpHowtoHtml: `
+  <h3>How to Use</h3>
+
+  <h4>Example: Using roles</h4>
+  <ol>
+    <li>Add a role, then enter characters and player names as candidates</li>
+    <li>Press the “Pick!” button to randomly assign a character for each role</li>
+    <li>You can copy the result and share it via LINE or Discord</li>
+  </ol>
+
+  <h4>Example: Without roles</h4>
+  <ol>
+    <li>Enter characters and player names as candidates</li>
+    <li>Press the “Pick!” button to randomly assign characters</li>
+    <li>You can copy the result and share it via LINE or Discord</li>
+  </ol>
+
+  <p><small>* If the number of players exceeds the number of characters, an alert will be shown and picking will not proceed.</small></p>
+`,
+    helpPwaHtml: `
+  <h3>📱Add to Home Screen (Mobile)</h3>
+
+  <h4>iPhone (Safari)</h4>
+  <ol>
+    <li>Open PickPlay! in Safari</li>
+    <li>Tap the Share icon (square with an arrow)</li>
+    <li>Select “Add to Home Screen”</li>
+    <li>Confirm the name, then tap “Add”</li>
+  </ol>
+
+  <h4>Android (Chrome)</h4>
+  <ol>
+    <li>Open PickPlay! in Chrome</li>
+    <li>Tap the ︙ (menu) in the top-right</li>
+    <li>Select “Add to Home screen” or “Install app”</li>
+    <li>Confirm and add</li>
+  </ol>
+
+  <h3>💻PC (Chrome / Edge)</h3>
+  <ol>
+    <li>Open the site</li>
+    <li>If you see an install icon in the address bar, click it</li>
+    <li>If not, open the browser menu and choose “Install”</li>
+  </ol>
+
+  <h3>Notes</h3>
+  <ul>
+    <li>On iPhone, using <strong>Safari</strong> is the most reliable (in-app browsers like LINE may not show the option).</li>
+    <li>The labels and behavior may vary depending on your browser/version.</li>
+  </ul>
+`,
   },
 };
+
 
 
 let currentLang = "ja";
@@ -477,15 +595,29 @@ document.getElementById("helpCloseBtn")?.addEventListener("click", () => {
 });
 
 
-  document.querySelectorAll(".helpTab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".helpTab").forEach(b => b.classList.remove("is-active"));
-      btn.classList.add("is-active");
+  const dialog = document.getElementById("helpDialog");
+const tabs = dialog?.querySelector(".helpTabs");
 
-      const tab = btn.dataset.tab;
-      document.querySelectorAll("[data-panel]").forEach(p => p.hidden = p.dataset.panel !== tab);
-    });
+function setHelpTab(tab) {
+  // タブの見た目
+  dialog.querySelectorAll(".helpTab").forEach(b => {
+    b.classList.toggle("is-active", b.dataset.tab === tab);
   });
+
+  dialog.querySelectorAll("[data-panel]").forEach(p => {
+    p.hidden = (p.dataset.panel !== tab);
+  });
+}
+
+tabs?.addEventListener("click", (e) => {
+  const btn = e.target.closest(".helpTab");
+  if (!btn) return;
+  setHelpTab(btn.dataset.tab);
+});
+
+// 初期表示
+setHelpTab("howto");
+
 
   // Chrome/Edge/Android向けのインストール
   window.addEventListener("beforeinstallprompt", (e) => {

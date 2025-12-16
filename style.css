@@ -177,3 +177,27 @@ label, .section-title {
 .helpTabs{ display:flex; gap:8px; margin-bottom:10px; }
 .helpTab{ padding:6px 10px; border-radius:10px; border:1px solid #ccc; background:#fff; }
 .helpTab.is-active{ font-weight:700; }
+
+
+
+#helpDialog{
+  background: #fff;
+  color: #111;
+}
+
+.helpBody{
+  color: #111;
+}
+
+/* タブ：非アクティブでも読めるように */
+.helpTab{
+  background: #fff;
+  color: #111;          
+}
+
+/* アクティブタブはボタンっぽく */
+.helpTab.is-active{
+  background: #007acc;  /* 既存ボタンと合わせる */
+  color: #fff;
+  font-weight: 700;
+}
