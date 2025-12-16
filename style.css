@@ -166,10 +166,7 @@ label, .section-title {
   border-radius:12px;
   padding:12px;
 }
-
-#helpDialog::backdrop{
-  background: rgba(0,0,0,.45);
-}
+#helpDialog::backdrop{ background: rgba(0,0,0,.45); }
 
 .helpHeader{
   display:flex;
@@ -177,24 +174,6 @@ label, .section-title {
   align-items:center;
   margin-bottom:8px;
 }
-
-.helpTabs{
-  display:flex;
-  gap:8px;
-  margin-bottom:10px;
-}
-
-.helpTab{
-  padding:6px 10px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  background:#fff;
-}
-
-.helpTab.is-active{
-  font-weight:700;
-}
-
-.helpBody h3{ margin: 10px 0 6px; }
-.helpBody ol{ margin: 0 0 10px 20px; }
-
+.helpTabs{ display:flex; gap:8px; margin-bottom:10px; }
+.helpTab{ padding:6px 10px; border-radius:10px; border:1px solid #ccc; background:#fff; }
+.helpTab.is-active{ font-weight:700; }
