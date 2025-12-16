@@ -16,9 +16,61 @@
 </head>
 <body>
     <!--言語切り替え-->
-    <div class="lang-switch">
-        <button onclick="toggleLanguage()">日本語 / English</button>
-    </div>
+    <div class="topbar">
+  <button onclick="toggleLanguage()">日本語 / English</button>
+
+  <button id="helpBtn" type="button">
+    <i class="fa-solid fa-circle-question"></i> ヘルプ
+  </button>
+
+  <button id="installBtn" type="button" hidden>
+    <i class="fa-solid fa-download"></i> インストール
+  </button>
+</div>
+
+<!-- ヘルプ（使い方 + PWA） -->
+<dialog id="helpDialog">
+  <div class="helpHeader">
+    <strong>PickPlay! ヘルプ</strong>
+    <button id="helpCloseBtn" type="button">×</button>
+  </div>
+
+  <div class="helpTabs">
+    <button class="helpTab is-active" data-tab="howto" type="button">使い方</button>
+    <button class="helpTab" data-tab="pwa" type="button">PWA</button>
+  </div>
+
+  <div class="helpBody">
+    <section data-panel="howto">
+      <h3>クイックスタート</h3>
+      <ol>
+        <li>候補（キャラ / プレイヤー名）を入力</li>
+        <li>「ピックする！」を押す</li>
+        <li>「コピー」→ LINE / Discord で共有</li>
+      </ol>
+
+      <h3>ロールを使う場合</h3>
+      <ol>
+        <li>「ロールを追加」してキャラを登録</li>
+        <li>プレイヤー名を入力</li>
+        <li>「ピックする！」</li>
+      </ol>
+
+      <p><small>※ キャラクター数がプレイヤー数より少ないとピックできません。</small></p>
+    </section>
+
+    <section data-panel="pwa" hidden>
+      <h3>iPhone（Safari）</h3>
+      <p>共有（□↑）→「ホーム画面に追加」</p>
+
+      <h3>Android（Chrome）</h3>
+      <p>メニュー（︙）→「アプリをインストール」/「ホーム画面に追加」</p>
+
+      <h3>PC（Chrome / Edge）</h3>
+      <p>アドレスバーのインストールアイコン、またはメニューから「インストール」</p>
+    </section>
+  </div>
+</dialog>
 
     <!--タイトル-->
     <h1 id="title">PickPlay!</h1>
