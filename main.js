@@ -256,21 +256,23 @@ const addRoleBtn = document.getElementById("addRoleBtn");
   document.getElementById("resetCharsBtn").textContent = t.resetCharsBtn;
 
     // ヘルプ/PWA文言
-  const helpBtnText = document.getElementById("helpBtnText");
-  if (helpBtnText) helpBtnText.textContent = t.helpBtn;
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value ?? "";
+  };
+  const setHtml = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = value ?? "";
+  };
 
-  const installBtnText = document.getElementById("installBtnText");
-  if (installBtnText) installBtnText.textContent = t.installBtn;
+setText("helpBtnText", t.helpBtn ?? (currentLang === "ja" ? "ヘルプ" : "Help"));
+setText("installBtnText", t.installBtn ?? (currentLang === "ja" ? "インストール" : "Install"));
+setText("helpTitle", t.helpTitle ?? "PickPlay! Help");
+setText("helpTabHowto", t.helpTabHowto ?? (currentLang === "ja" ? "使い方" : "How to use"));
+setText("helpTabPwa", t.helpTabPwa ?? "PWA");
 
-  const helpTitle = document.getElementById("helpTitle");
-  if (helpTitle) helpTitle.textContent = t.helpTitle;
-
-  document.getElementById("helpTabHowto").textContent = t.helpTabHowto;
-  document.getElementById("helpTabPwa").textContent = t.helpTabPwa;
-
-  document.getElementById("helpPanelHowto").innerHTML = t.helpHowtoHtml;
-  document.getElementById("helpPanelPwa").innerHTML = t.helpPwaHtml;
-
+setHtml("helpPanelHowto", t.helpHowtoHtml ?? "");
+setHtml("helpPanelPwa", t.helpPwaHtml ?? "");
 
 
   // ここでプレイヤー入力欄の表示制御
@@ -360,17 +362,6 @@ const addRoleBtn = document.getElementById("addRoleBtn");
 
     container.appendChild(block);
   }
-}
-
-
-function importNames() {
-  const importText = document.getElementById("bulkImport").value;
-  const players = importText
-    .split(/[\n,]+/) // 改行またはカンマで分割
-    .map(name => name.trim())
-    .filter(name => name !== "");
-
-  document.getElementById("playerNames").value = players.join("\n");
 }
 
 
@@ -473,8 +464,18 @@ let deferredPrompt = null;
 function initHelpUI() {
   const helpDialog = document.getElementById("helpDialog");
 
-  document.getElementById("helpBtn")?.addEventListener("click", () => helpDialog?.showModal());
-  document.getElementById("helpCloseBtn")?.addEventListener("click", () => helpDialog?.close());
+  document.getElementById("helpBtn")?.addEventListener("click", () => {
+  if (!helpDialog) return;
+  if (typeof helpDialog.showModal === "function") helpDialog.showModal();
+  else helpDialog.setAttribute("open", "");
+});
+
+document.getElementById("helpCloseBtn")?.addEventListener("click", () => {
+  if (!helpDialog) return;
+  if (typeof helpDialog.close === "function") helpDialog.close();
+  helpDialog.removeAttribute("open");
+});
+
 
   document.querySelectorAll(".helpTab").forEach(btn => {
     btn.addEventListener("click", () => {
